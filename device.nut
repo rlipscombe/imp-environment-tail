@@ -28,9 +28,9 @@ function onPressureRead(table) {
     foreach (k, v in table) {
         server.log(k + ": " + v);
     }
-    
+
     agent.send("pressure", table);
-    
+
     imp.wakeup(10.0, function() {
         pressureSensor.read(onPressureRead);
     });
@@ -48,23 +48,10 @@ function onTempHumidRead(table) {
     }
 
     agent.send("tempHumid", table);
-    
+
     imp.wakeup(10.0, function() {
         tempHumidSensor.read(onTempHumidRead);
     });
 }
 
 tempHumidSensor.read(onTempHumidRead);
-
-LED <- 0;
-
-function flashLed() {
-    hardware.pin2.write(LED);
-    LED = 1 - LED;
-    
-    imp.wakeup(0.5, flashLed)
-}
-
-hardware.pin2.configure(DIGITAL_OUT);
-hardware.pin2.write(0);     // initially off
-//flashLed();

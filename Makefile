@@ -1,16 +1,18 @@
 LIBS := $(wildcard lib/*.nut)
+HTML := $(wildcard html/*.html)
+JS := $(wildcard js/*.js)
 
 all: build run
 
 build: agent.nut_ device.nut_
 
-agent.nut_: agent.nut $(LIBS)
+agent.nut_: agent.nut $(LIBS) $(HTML)
 device.nut_: device.nut $(LIBS)
 
 # We use 'Builder' to preprocess the nut files.
 # See https://github.com/electricimp/Builder
 # You need to "npm install -g Builder"
-PLEASEBUILD_OPTS := -l 
+PLEASEBUILD_OPTS := -l
 PLEASEBUILD := pleasebuild $(PLEASEBUILD_OPTS)
 
 # .nut -> .nut_
