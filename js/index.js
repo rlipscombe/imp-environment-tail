@@ -6,8 +6,8 @@ function render(h) {
     }
 
     var data = [
-        { label: "Temperature", lines: { show: true, fill: false }, points: { show: true }, data: [] },
-        { label: "Humidity", yaxis: 2, lines: { show: true, fill: false }, points: { show: true }, data: [] }
+        { label: "Temperature", lines: { show: true, fill: false }, points: { show: false }, data: [] },
+        { label: "Humidity", yaxis: 2, lines: { show: true, fill: false }, points: { show: false }, data: [] }
     ];
     h.forEach(x => {
         data[0].data.push([x.ts * 1000, x.temp]);
