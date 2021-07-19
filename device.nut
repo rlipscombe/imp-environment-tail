@@ -14,7 +14,7 @@ local lightSensor = APDS9007(lightOutputPin, 47000, lightEnablePin);
 function onLightSensorRead() {
     local value = lightSensor.read();
     server.log("Light Sensor: " + value + " lux");
-    imp.wakeup(10.0, onLightSensorRead);
+    imp.wakeup(60.0, onLightSensorRead);
 }
 
 // reading the light sensor is kinda expensive: it can take 4-5 seconds.
@@ -31,7 +31,7 @@ function onPressureRead(table) {
 
     agent.send("pressure", table);
 
-    imp.wakeup(10.0, function() {
+    imp.wakeup(60.0, function() {
         pressureSensor.read(onPressureRead);
     });
 }
@@ -49,7 +49,7 @@ function onTempHumidRead(table) {
 
     agent.send("tempHumid", table);
 
-    imp.wakeup(10.0, function() {
+    imp.wakeup(60.0, function() {
         tempHumidSensor.read(onTempHumidRead);
     });
 }

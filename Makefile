@@ -6,7 +6,7 @@ all: build run
 
 build: agent.nut_ device.nut_
 
-agent.nut_: agent.nut $(LIBS) $(HTML)
+agent.nut_: agent.nut $(LIBS) $(JS) $(HTML)
 device.nut_: device.nut $(LIBS)
 
 # We use 'Builder' to preprocess the nut files.

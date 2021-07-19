@@ -1,15 +1,34 @@
-$(function() {
+function render(h) {
+    console.log(h);
 
-    var d1 = [];
-    for (var i = 0; i < 14; i += 0.5) {
-        d1.push([i, Math.sin(i)]);
+    opts = {
+        xaxis: { mode: "time", timeBase: "milliseconds", timeformat: "%H:%M:%S" },
+        yaxis: {},
+        y2axis: { position: "right" },
     }
 
-    var d2 = [[0, 3], [4, 8], [8, 5], [9, 13]];
+    var data = [
+        { label: "Temperature", lines: { show: true, fill: false }, points: { show: true }, data: [] },
+        { label: "Humidity", yaxis: 2, lines: { show: true, fill: false }, points: { show: true }, data: [] }
+    ];
+    h.forEach(x => {
+        data[0].data.push([x.ts * 1000, x.temp]);
+        data[1].data.push([x.ts * 1000, x.humid]);
+    });
 
-    // A null signifies separate line segments
+    $.plot("#placeholder", data, opts);
+}
 
-    var d3 = [[0, 12], [7, 12], null, [7, 2.5], [12, 2.5]];
+function update() {
+    $.getJSON("history.json",
+        function(data, status, xhr) {
+            render(data.h);
+        });
+}
 
-    $.plot("#placeholder", [ d1, d2, d3 ]);
-});
+function ready() {
+    update();
+    setInterval(ready, 30000);
+}
+
+$(document).ready(ready);

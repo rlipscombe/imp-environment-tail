@@ -5,8 +5,20 @@ local LATEST = {
     pressure = {}
 };
 
+local HISTORY = server.load();
+
 device.on("tempHumid", function(table) {
     LATEST.tempHumid <- table;
+    local h = { ts = time(), temp = table.temperature, humid = table.humidity };
+
+    // Once a minute => 48 hours.
+    while (HISTORY.h.len() >= 2880) {
+        HISTORY.h.remove(0);
+    }
+
+    HISTORY.h.push(h);
+
+    server.save(HISTORY, 2);
 });
 
 device.on("pressure", function(table) {
@@ -17,6 +29,10 @@ local settings = { "strictRouting": true, "sigCaseSensitive": true };
 app <- Rocky.init(settings);
 app.get("/latest.json", function(context) {
     context.send(200, LATEST);
+});
+
+app.get("/history.json", function(context) {
+    context.send(200, HISTORY);
 });
 
 app.get("/", function(context) {
