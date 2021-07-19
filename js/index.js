@@ -1,6 +1,4 @@
 function render(h) {
-    console.log(h);
-
     opts = {
         xaxis: { mode: "time", timeBase: "milliseconds", timeformat: "%H:%M:%S" },
         yaxis: {},
