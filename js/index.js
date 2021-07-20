@@ -18,15 +18,17 @@ function render(h) {
 }
 
 function update() {
-    $.getJSON("history.json",
-        function(data, status, xhr) {
-            render(data.h);
-        });
+    console.log("update");
+    $.getJSON("history.json").done(function(data) {
+        render(data.h);
+    }).fail(function(xhr, status, error) {
+        console.log(status + ", " + error);
+    });
 }
 
 function ready() {
     update();
-    setInterval(ready, 30000);
+    setInterval(update, 30000);
 }
 
 $(document).ready(ready);
