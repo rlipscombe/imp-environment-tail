@@ -38,6 +38,7 @@ app.get("/history.json", function(context) {
 });
 
 app.get("/", function(context) {
+    // TODO: if we want to display the index, we need to redirect, otherwise relative URLs are broken.
     context.send(200, LATEST);
 });
 
