@@ -10,8 +10,8 @@ function render(h) {
         { label: "Humidity", yaxis: 2, lines: { show: true, fill: false }, points: { show: false }, data: [] }
     ];
     h.forEach(x => {
-        data[0].data.push([x.ts * 1000, x.temp]);
-        data[1].data.push([x.ts * 1000, x.humid]);
+        data[0].data.push([x[0] * 1000, x[1]]);
+        data[1].data.push([x[0] * 1000, x[2]]);
     });
 
     $.plot("#placeholder", data, opts);
