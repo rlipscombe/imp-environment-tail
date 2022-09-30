@@ -23,8 +23,9 @@ PLEASEBUILD := pleasebuild $(PLEASEBUILD_OPTS)
 # See https://github.com/electricimp/imp-central-impt
 # You need to "npm install -g imp-central-impt"
 IMPT := impt
+IMPT_PROJECT := .impt.project
 
-run:
+run: $(IMPT_PROJECT)
 	$(IMPT) build run
 
 run-log:
