@@ -49,3 +49,9 @@ app.get("/index.html", function(context) {
 app.get("/js/index.js", function(context) {
     context.send(200, "@{include('js/index.js') | escape}");
 });
+
+app.post("/clear", function(context) {
+    server.save({h = []});
+    HISTORY = server.load();
+    context.send(200, "OK");
+});
