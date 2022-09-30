@@ -5,7 +5,6 @@ local LATEST = {
     pressure = {}
 };
 
-//server.save({h = []});
 local HISTORY = server.load();
 
 device.on("tempHumid", function(table) {
@@ -13,7 +12,6 @@ device.on("tempHumid", function(table) {
     local h = [ time(), table.temperature, table.humidity ];
 
     // Once every 2 minutes => 48 hours.
-    server.log(HISTORY.h.len());
     while (HISTORY.h.len() >= 1440) {
         HISTORY.h.remove(0);
     }
