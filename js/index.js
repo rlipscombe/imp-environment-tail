@@ -1,20 +1,18 @@
 function render(h) {
     opts = {
         xaxis: { mode: "time", timeBase: "milliseconds", timeformat: "%H:%M:%S" },
-        yaxis: {},
-        y2axis: { position: "right" },
+        yaxis: { position: "right" },
     }
 
     var data = [
-        { label: "Temperature", lines: { show: true, fill: false }, points: { show: false }, data: [] },
-        { label: "Humidity", yaxis: 2, lines: { show: true, fill: false }, points: { show: false }, data: [] }
+        { label: "Temperature", color: "orange", lines: { show: true, fill: false }, points: { show: true }, data: h.map(r => [r[0] * 1000, r[1]]) },
     ];
-    h.forEach(x => {
-        data[0].data.push([x[0] * 1000, x[1]]);
-        data[1].data.push([x[0] * 1000, x[2]]);
-    });
+    $.plot("#temperature", data, opts);
 
-    $.plot("#placeholder", data, opts);
+    var data = [
+        { label: "Humidity", color: "cyan", lines: { show: true, fill: false }, points: { show: true }, data: h.map(r => [r[0] * 1000, r[2]]) },
+    ];
+    $.plot("#humidity", data, opts);
 }
 
 function update() {
