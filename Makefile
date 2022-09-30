@@ -30,3 +30,6 @@ run: $(IMPT_PROJECT)
 
 run-log:
 	$(IMPT) build run --log
+
+clean:
+	rm -f device.nut_ agent.nut_
