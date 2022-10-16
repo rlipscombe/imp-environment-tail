@@ -55,6 +55,8 @@ app.post("/clear", function(context) {
 });
 
 app.get("/metrics", function(context) {
+    //server.log("GET /metrics " + context.getHeader("User-Agent"));
+
     // Unix epoch, seconds.
     local t = time();
     // Multiplying by 1000 overflows, so just jam some zeroes on the end in the string format.
