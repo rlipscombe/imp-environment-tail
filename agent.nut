@@ -55,6 +55,10 @@ app.post("/clear", function(context) {
 });
 
 app.get("/metrics", function(context) {
-    context.send(200, format("temperature %f\nhumidity %f\npressure %f\n",
-        LATEST.tempHumid.temperature, LATEST.tempHumid.humidity, LATEST.pressure.pressure));
+    local t = time();
+    // Multiplying by 1000 overflows, so just jam some zeroes on the end in the string format.
+    context.send(200, format("temperature %f %d000\nhumidity %f %d000\npressure %f %d000\n",
+        LATEST.tempHumid.temperature, t,
+        LATEST.tempHumid.humidity, t,
+        LATEST.pressure.pressure, t));
 });
