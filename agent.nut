@@ -53,3 +53,8 @@ app.post("/clear", function(context) {
     HISTORY = server.load();
     context.send(200, "OK");
 });
+
+app.get("/metrics", function(context) {
+    context.send(200, format("temperature %f\nhumidity %f\npressure %f\n",
+        LATEST.tempHumid.temperature, LATEST.tempHumid.humidity, LATEST.pressure.pressure));
+});
